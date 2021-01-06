@@ -8,25 +8,22 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="scripts/index.js"> </script>
-    <title>Cezar - SIS</title>
+    <title>Vigner - SIS</title>
 </head>
 
-<body onload="generateOptions()">
+<body>
     <section>
-        <div class="main-container">
+        <div class="main-container" >
             <div class="form-box">
                 <div class="back-wrapper">
                     <a href="index.html" class="default-link">
                         <span class="fas fa-angle-double-left back-arrow"></span>
                     </a>
                 </div>
-                <h1 class="title">Cezarova šifra</h1>
+                <h1 class="title">Vižnjerova šifra</h1>
                 <textarea class="main-input" rows="5" cols="30" placeholder="Unesite otvoreni tekst"></textarea>
-                <div class="shift-holder">
-                    <label for="shift">Broj pomeranja</label>
-                    <select name="shift" class="shift"></select>
-                </div>
-                <button class="main-btn" onclick="cesarCipher()">Sifruj</button>
+                <input class="main-input" name="kljuc" placeholder="Unesite šifrat"></input>
+                <button class="main-btn" onclick="vignerCipher()">Sifruj</button>
             </div>
         </div>
     </section>
