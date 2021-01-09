@@ -68,11 +68,11 @@ const afinaCipher = () => {
 
 const playfairCipher = () => {
 
-    const getFirstNonRepeatedLetter = (alphabet , text) => {
+    const getFirstNonRepeatedLetter = (alphabet, text) => {
         let newLetter = "";
         alphabet = alphabet.replace("i", "j");
-        for(let i = 0; i < alphabet.length; i++){
-            if ( text.indexOf(alphabet[i]) < 0 ){
+        for (let i = 0; i < alphabet.length; i++) {
+            if (text.indexOf(alphabet[i]) < 0) {
                 newLetter = alphabet[i];
                 break;
             }
@@ -81,46 +81,75 @@ const playfairCipher = () => {
     }
 
     let otvoreniTekst = document.querySelector(".main-input").value.split(" ").join(""),
+        kljuc = document.querySelector("input[name=kljuc]").value.split(" ").join(""),
         alphabet = "abcdefghijklmnopqrstuvwxyz",
-        sifrat = "", helper, newIndex;
+        sifrat = "",
+        matrix = new Array(5).fill(new Array(5).fill()),
+        matrixNew = [[], [], [], [], []],
+        noviKljuc = "",
+        counter = 0,
+        temp = {},
+        toPush,
+        pairs = [],
+        sameColumn,sameRow
+        slovaOtvorenogTeksta = otvoreniTekst.toLowerCase().split(""),
+        slovaKljuca = kljuc.toLowerCase().split(""),
+        foundFirst, foundSecond;
 
-    let matrix = new Array(5).fill(new Array(5).fill());
-    let matrixNew = [[], [], [], [], []];
 
-    let newOt = "";
-
-
-    var counter = 0;
-    let temp = [];
-    let toPush;
-
-    //get rid of dupes
-    // i = j;
-    otvoreniTekst.toLowerCase().split("").forEach((letter) => {
-        if (letter === "i") {
-            letter = "j";
-        }
-        if (newOt.indexOf(letter) < 0) {
-            newOt += letter;
+    slovaOtvorenogTeksta.forEach((letter, idx) => {
+        if (idx % 2 === 0) {
+            temp = {};
+            temp.firstLetter = letter;
+            temp.secondLetter = "x";
+            if (idx + 1 < otvoreniTekst.length - 1) {
+                if (slovaOtvorenogTeksta[idx + 1] !== letter) {
+                    temp.secondLetter = slovaOtvorenogTeksta[idx + 1];
+                }
+            }
+            pairs.push(temp);
         }
     })
 
+    //get rid of dupes
+    // i = j;
+    slovaKljuca.forEach((letter) => {
+        if (letter === "i") {
+            letter = "j";
+        }
+        if (noviKljuc.indexOf(letter) < 0) {
+            noviKljuc += letter;
+        }
+    })
+
+    console.log(pairs);
+
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
-            if (counter <= newOt.length - 1) {
-                toPush = newOt[counter].toLowerCase();
+            if (counter <= noviKljuc.length - 1) {
+                toPush = noviKljuc[counter].toLowerCase();
                 matrixNew[i].push(toPush);
             }
-            else{
-                let newLetter = getFirstNonRepeatedLetter(alphabet,newOt);
-                newOt+=newLetter;
+            else {
+                let newLetter = getFirstNonRepeatedLetter(alphabet, noviKljuc);
+                noviKljuc += newLetter;
                 matrixNew[i].push(newLetter);
             }
             counter = counter + 1;
         }
     }
 
-    console.log(matrixNew);
+    pairs.forEach((pair => {
+       sameColumn = false ;
+       sameRow = false ;
+       foundFirst = false ;
+       foundSecond = false ;
+        for (let i = 0; i < matrixNew.length; i++) {
+            for (let j = 0; j < matrixNew[i].length; j++) {
+
+            }
+        }
+    }))
 }
 
 const generateOptions = () => {
