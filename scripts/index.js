@@ -91,13 +91,17 @@ const playfairCipher = () => {
         temp = {},
         toPush,
         pairs = [],
-        sameColumn,sameRow
+        helper = {},
+        sameColumn, sameRow,
         slovaOtvorenogTeksta = otvoreniTekst.toLowerCase().split(""),
         slovaKljuca = kljuc.toLowerCase().split(""),
         foundFirst, foundSecond;
 
 
     slovaOtvorenogTeksta.forEach((letter, idx) => {
+        if (letter === "i") {
+            letter = "j"
+        }
         if (idx % 2 === 0) {
             temp = {};
             temp.firstLetter = letter;
@@ -122,7 +126,6 @@ const playfairCipher = () => {
         }
     })
 
-    console.log(pairs);
 
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
@@ -139,17 +142,35 @@ const playfairCipher = () => {
         }
     }
 
+    console.log(pairs);
+    console.log(matrixNew);
+
     pairs.forEach((pair => {
-       sameColumn = false ;
-       sameRow = false ;
-       foundFirst = false ;
-       foundSecond = false ;
+        sameColumn = false;
+        sameRow = false;
+        // foundFirst = false;
+        // foundSecond = false;
+        firstLetterIdx = [];
+        secondLetterIdx = [];
         for (let i = 0; i < matrixNew.length; i++) {
             for (let j = 0; j < matrixNew[i].length; j++) {
-
+                helper = {};
+                if (pair.firstLetter === matrixNew[i][j]) {
+                    firstLetterIdx.push({
+                        i, j, letter: matrixNew[i][j] , pair
+                    })
+                }
+                else if (pair.secondLetter === matrixNew[i][j]) {
+                    secondLetterIdx.push({
+                        i, j, letter : matrixNew[i][j], pair
+                    });
+                }
             }
         }
-    }))
+
+        console.log(`First letter idx ${JSON.stringify(firstLetterIdx)}`);
+        console.log(`Second letter idx ${JSON.stringify(secondLetterIdx)}`);
+    }));
 }
 
 const generateOptions = () => {
