@@ -113,9 +113,6 @@ const playfairCipher = () => {
                     if (checkIfInAlphabet(newLetter, alphabet)) {
                         temp.secondLetter = newLetter;
                     }
-                    else {
-                    }
-
                 }
             }
             pairs.push(temp);
@@ -212,42 +209,50 @@ const diffieCipher = () => {
     document.querySelector(".result").innerText = `Alisin racun => ${aliceCalc} \n Bobov racun => ${bobCalc} \n Alisina tajna => ${aliceSecret} \n Bobova tajna => ${bobSecret}`;
 
 }
+// a function that will return us primes so we find
+// 2 primes that are equal to a number later on
+const generatePrimesUpTo = (target) => {
+    if (target && Number.isInteger(target) && target > 2) {
+        let record = []
+        let primes = [2]
+        let max = Math.sqrt(target)
+
+        for (let number = 0; number < target; number++) {
+            record.push(1)
+        }
+
+        for (let prime = 3; prime <= max; prime += 2) {
+            if (record[prime]) {
+                for (let multiple = prime * prime; multiple < target; multiple += prime * 2) {
+                    record[multiple] = 0
+                }
+            }
+        }
+
+        for (let sievedNumber = 3; sievedNumber < target; sievedNumber += 2) {
+            if (record[sievedNumber]) {
+                primes.push(sievedNumber)
+            }
+        }
+
+        return primes
+    }
+}
+
+const randomPrimes = () => {
+    let primes = generatePrimesUpTo(1000);
+    let max = 0;
+    let min = primes.length - 1;
+    let random1 = Math.floor(Math.random() * (max - min + 1)) + min;
+    let random2 = Math.floor(Math.random() * (max - min + 1)) + min;
+    document.getElementsByName("prime-1")[0].value = random1;
+    document.getElementsByName("prime-2")[0].value = random2;
+}
 
 
 const rsaCipher = () => {
-
-    // a function that will return us primes so we find
-    // 2 primes that are equal to a number later on
-    const findPrimesFaster = (target) => {
-        if (target && Number.isInteger(target) && target > 2) {
-            let record = []
-            let primes = [2]
-            let max = Math.sqrt(target)
-
-            for (let number = 0; number < target; number++) {
-                record.push(1)
-            }
-
-            for (let prime = 3; prime <= max; prime += 2) {
-                if (record[prime]) {
-                    for (let multiple = prime * prime; multiple < target; multiple += prime * 2) {
-                        record[multiple] = 0
-                    }
-                }
-            }
-
-            for (let sievedNumber = 3; sievedNumber < target; sievedNumber += 2) {
-                if (record[sievedNumber]) {
-                    primes.push(sievedNumber)
-                }
-            }
-
-            return primes
-        }
-        return "Please enter an integer greater than two"
-    }
-
-    let prime1, prime2 = findPrimes(n);
+    let prime1, prime2 = generatePrimesUpTo(n);
+    
 }
 
 

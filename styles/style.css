@@ -128,7 +128,7 @@ section .main-container{
     border:2px solid #27ae60;
 }
 
-.main-btn{
+.main-btn, .secondary-btn{
     color:white;
     outline:none;
     margin-top:17px;
@@ -140,6 +140,12 @@ section .main-container{
     cursor: pointer;
     font-weight: bold;
     border-radius: 10px;
+}
+
+.secondary-btn{
+    background-color: #3498db;
+    width: 60%;
+    font-size: 1.4rem;
 }
 
 .back-wrapper{
