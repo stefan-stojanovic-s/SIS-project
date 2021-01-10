@@ -337,9 +337,9 @@ const rsaCipher = () => {
         return;
     }
 
-    let d;
+    let d, digitalSignature;
     try {
-        d = bigInt(e).modInv(fn), digitalSignature;
+        d = bigInt(e).modInv(fn);
     }
     catch (err) {
         alert(`${e} i ${fn} nisu uzajmno prosti brojevi!`);
