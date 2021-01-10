@@ -8,7 +8,7 @@
 
  - Cezarova šifra
  - Vižnerova šifra
- - Afinina šifra
+ - Afina šifra
  - Playfair-ova šifra
  - Prikaz Diffie-Helman protokola
  - RSA
