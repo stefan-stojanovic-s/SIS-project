@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="scripts/index.js"> </script>
+    <title>Diffie-Helman- SIS</title>
+</head>
+
+<body>
+    <section>
+        <div class="main-container">
+            <div class="form-box">
+                <div class="back-wrapper">
+                    <a href="index.html" class="default-link">
+                        <span class="fas fa-angle-double-left back-arrow"></span>
+                    </a>
+                </div>
+                <h1 class="title">Diffie-Helman <br/>protokol</h1>
+
+                <input class="main-input" name="p" placeholder="Unesite p"></input>
+                <input class="main-input" name="g" placeholder="Unesite g"></input>
+                <input class="main-input" name="alice" placeholder="Unesite Alisin broj"></input>
+                <input class="main-input" name="bob" placeholder="Unesite Bobov broj"></input>
+
+                <div class="result" style="margin-top: 20px; font-size: 1.3rem;">
+                </div>
+
+                <button class="main-btn" onclick="diffieCipher()">Sifruj</button>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
