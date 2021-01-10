@@ -7,7 +7,7 @@
  U ovo su uključeni : 
 
  - Cezarova šifra
- - Vižnjerova šifra
+ - Vižnerova šifra
  - Afinina šifra
  - Playfair-ova šifra
  - Prikaz Diffie-Helman protokola
