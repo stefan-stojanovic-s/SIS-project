@@ -1,9 +1,10 @@
 
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
 const checkIfInAlphabet = (letter) => alphabet.indexOf(letter.toLowerCase()) >= 0 ? true : false;
+const replaceSpecialSigns = (text) => text.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '').split(" ").join("");
 
 const cesarCipher = () => {
-    let otvoreniTekst = document.querySelector(".main-input").value,
+    let otvoreniTekst = replaceSpecialSigns(document.querySelector(".main-input").value),
         brojPomeranja = parseInt(document.querySelector(".shift").value),
         sifrat = "", helper, newIndex;
     otvoreniTekst.split("").forEach((letter) => {
@@ -21,66 +22,51 @@ const cesarCipher = () => {
                 sifrat += alphabet[newIndex];
             }
         }
-        else {
-            sifrat += letter;
-        }
     });
-
     document.querySelector(".main-input").value = sifrat;
 }
 
 const vignerCipher = () => {
-    let otvoreniTekst = document.querySelector(".main-input").value,
-        kljuc = document.getElementsByName("kljuc")[0].value.split(" ").join(""),
+    let otvoreniTekst = replaceSpecialSigns(document.querySelector(".main-input").value),
+        kljuc = replaceSpecialSigns(document.getElementsByName("kljuc")[0].value).toLowerCase(),
         sifrat = "", helper, newIndex, kljucDuzina = kljuc.length;
 
     otvoreniTekst.split("").forEach((letter, idx) => {
-        if (checkIfInAlphabet(letter)) {
-            newIndex = alphabet.indexOf(letter.toLowerCase()) + alphabet.indexOf(kljuc[idx % kljucDuzina].toLowerCase());
-            if (newIndex >= 26) {
-                newIndex %= 26;
-            }
-            if (letter.toLowerCase() !== letter) {
-                sifrat += alphabet[newIndex].toUpperCase();
-            }
-            else {
-                sifrat += alphabet[newIndex];
-            }
-        } else {
-            sifrat += letter;
+        newIndex = alphabet.indexOf(letter.toLowerCase()) + alphabet.indexOf(kljuc[idx % kljucDuzina].toLowerCase());
+        if (newIndex >= 26) {
+            newIndex %= 26;
+        }
+        if (letter.toLowerCase() !== letter) {
+            sifrat += alphabet[newIndex].toUpperCase();
+        }
+        else {
+            sifrat += alphabet[newIndex];
         }
     });
     document.querySelector(".main-input").value = sifrat;
 }
 
 const afinaCipher = () => {
-    let otvoreniTekst = document.querySelector(".main-input").value,
+    let otvoreniTekst = replaceSpecialSigns(document.querySelector(".main-input").value),
         a = parseInt(document.getElementsByName("kljuc-a")[0].value.split(" ").join("")),
         b = parseInt(document.getElementsByName("kljuc-b")[0].value.split(" ").join("")),
         sifrat = "", helper, newIndex;
 
-
     otvoreniTekst.split("").forEach((letter, idx) => {
-        if (checkIfInAlphabet(letter)) {
-            newIndex = (alphabet.indexOf(letter.toLowerCase()) * a + b) % 26;
-            if (letter.toLowerCase() === letter) {
-                sifrat += alphabet[newIndex];
-            }
-            else {
-                sifrat += alphabet[newIndex].toUpperCase();
-            }
+        newIndex = (alphabet.indexOf(letter.toLowerCase()) * a + b) % 26;
+        if (letter.toLowerCase() === letter) {
+            sifrat += alphabet[newIndex];
         }
         else {
-            sifrat += letter;
+            sifrat += alphabet[newIndex].toUpperCase();
         }
-
     });
     document.querySelector(".main-input").value = sifrat;
 }
 
 const playfairCipher = () => {
-    let otvoreniTekst = document.querySelector(".main-input").value.split(" ").join(""),
-        kljuc = document.querySelector("input[name=kljuc]").value.split(" ").join(""),
+    let otvoreniTekst = replaceSpecialSigns(document.querySelector(".main-input").value),
+        kljuc = replaceSpecialSigns(document.querySelector("input[name=kljuc]").value),
         sifrat = "",
         matrix = new Array(5).fill(new Array(5).fill()),
         matrixNew = [[], [], [], [], []],
