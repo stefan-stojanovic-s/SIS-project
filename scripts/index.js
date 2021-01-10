@@ -326,6 +326,9 @@ const rsaCipher = () => {
         let d = 1, x;
         while (true) {
             x = e * d;
+            if (d === 10000){
+                return "";
+            }
             if (x % fn === 1) {
                 return d
             }
@@ -347,8 +350,8 @@ const rsaCipher = () => {
         return;
     }
 
-    let d = findKey(e, fn), digitalSignature = Math.pow(m, d) % n;
-    document.querySelector(".result").innerText = `Digitalni potpis je => ${digitalSignature}`
+    let d = findKey(e, fn), digitalSignature = Number.isInteger(m) ? bigInt(m).pow(d).mod(n) : "Not found";
+    document.querySelector(".result").innerText = `Digitalni potpis je => ${digitalSignature.toString()}`
 }
 
 
