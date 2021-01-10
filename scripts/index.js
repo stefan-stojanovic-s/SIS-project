@@ -194,19 +194,23 @@ const playfairCipher = () => {
     document.querySelector(".main-input").value = sifrat;
 }
 
+
 const diffieCipher = () => {
     let p = parseInt(document.getElementsByName("p")[0].value.split(" ").join("")),
         g = parseInt(document.getElementsByName("g")[0].value.split(" ").join("")),
         aliceNumber = parseInt(document.getElementsByName("alice")[0].value.split(" ").join("")),
         bobNumber = parseInt(document.getElementsByName("bob")[0].value.split(" ").join(""));
 
-    let aliceCalc = Math.pow(g, aliceNumber) % p;
-    let bobCalc = Math.pow(g, bobNumber) % p;
 
-    let aliceSecret = Math.pow(bobCalc, aliceNumber) % p;
-    let bobSecret = Math.pow(aliceCalc, bobNumber) % p;
+    var aliceCalc = bigInt(g).pow(aliceNumber).mod(p);
+    let bobCalc = bigInt(g).pow(bobNumber).mod(p);
+    // let aliceSecret = Math.pow(bobCalc, aliceNumber) % p;
+    // let bobSecret = Math.pow(aliceCalc, bobNumber) % p;
 
-    document.querySelector(".result").innerText = `Alisin racun => ${aliceCalc} \n Bobov racun => ${bobCalc} \n Alisina tajna => ${aliceSecret} \n Bobova tajna => ${bobSecret}`;
+    let aliceSecret = bobCalc.pow(aliceNumber).mod(p);
+    let bobSecret = aliceCalc.pow(bobNumber).mod(p);
+
+    document.querySelector(".result").innerText = `Alisin racun => ${aliceCalc.toString()} \n Bobov racun => ${bobCalc.toString()} \n Alisina tajna => ${aliceSecret.toString()} \n Bobova tajna => ${bobSecret.toString()}`;
 
 }
 // a function that will return us primes so we find
@@ -239,20 +243,112 @@ const generatePrimesUpTo = (target) => {
     }
 }
 
+const isPrime = num => {
+    for (let i = 2, s = Math.sqrt(num); i <= s; i++)
+        if (num % i === 0) return false;
+    return num > 1;
+}
+
+const findMultiplicativePrimes = (number) => {
+    const primes = generatePrimesUpTo(number);
+    for (let i = 0; i < primes.length; i++) {
+        for (let j = 0; j < primes.length; j++) {
+            if (primes[i] * primes[j] === number) {
+                return {
+                    found: true,
+                    prime1: primes[i],
+                    prime2: primes[j]
+                }
+            }
+        }
+    }
+    return {
+        found: false,
+    }
+}
+
+const clearFields = () => {
+    let prime1 = document.getElementsByName("prime-1")[0];
+    let prime2 = document.getElementsByName("prime-2")[0];
+    let primesHolder = document.getElementsByClassName("primes")[0];
+    let message = document.getElementsByClassName("message")[0];
+    message.innerText = "";
+    primesHolder.style.display = "none";
+    prime1.innerText = "Prost broj q";
+    prime2.innerText = "Prost broj p"
+
+}
+
+const isNInversible = elem => {
+    clearFields();
+    let notAllowedNumbers = [0, 1, 2];
+    let number = elem.value;
+    let message = document.getElementsByClassName("message")[0];
+    message.innerText = "";
+    if (number) {
+        number = parseInt(elem.value);
+        if (Number.isInteger(number) && notAllowedNumbers.indexOf(number) < 0) {
+            let result = findMultiplicativePrimes(number);
+            if (result.found) {
+                document.getElementsByClassName("primes")[0].style.display = "flex";
+                document.getElementsByName("prime-1")[0].innerText += " => " + result.prime1;
+                document.getElementsByName("prime-2")[0].innerText += " => " + result.prime2;
+                document.getElementsByName("n")[0].value = result.prime1 * result.prime2;
+            }
+            else {
+                message.innerText = "N nije proizvod dva prosta broja";
+            }
+        }
+        else {
+            message.innerText = "N nije broj";
+        }
+    }
+}
+
 const randomPrimes = () => {
-    let primes = generatePrimesUpTo(1000);
-    let max = 0;
-    let min = primes.length - 1;
+    clearFields();
+    let primes = generatePrimesUpTo(100);
+    let min = 0;
+    let max = primes.length - 1;
     let random1 = Math.floor(Math.random() * (max - min + 1)) + min;
     let random2 = Math.floor(Math.random() * (max - min + 1)) + min;
-    document.getElementsByName("prime-1")[0].value = random1;
-    document.getElementsByName("prime-2")[0].value = random2;
+    document.getElementsByClassName("primes")[0].style.display = "flex";
+    document.getElementsByName("prime-1")[0].innerText += " => " + primes[random1];
+    document.getElementsByName("prime-2")[0].innerText += " => " + primes[random2];
+    document.getElementsByName("n")[0].value = primes[random1] * primes[random2];
+
 }
 
 
 const rsaCipher = () => {
-    let prime1, prime2 = generatePrimesUpTo(n);
-    
+
+    const findKey = (e, fn) => {
+        let d = 1, x;
+        while (true) {
+            x = e * d;
+            if (x % fn === 1) {
+                return d
+            }
+            else {
+                d += 1
+            }
+        }
+    }
+
+    let n = parseInt(document.getElementsByName("n")[0].value),
+        prime1 = parseInt(document.getElementsByName("prime-1")[0].innerText.split("=> ")[1]),
+        prime2 = parseInt(document.getElementsByName("prime-2")[0].innerText.split("=> ")[1]),
+        e = parseInt(document.getElementsByName("e")[0].value),
+        m = parseInt(document.getElementsByName("m")[0].value),
+        fn = (prime1 - 1) * (prime2 - 1);
+
+    if (e <= 1 || e >= fn) {
+        alert("Vrednost e mora biti izmedju 1 i fi(n)");
+        return;
+    }
+
+    let d = findKey(e, fn), digitalSignature = Math.pow(m, d) % n;
+    document.querySelector(".result").innerText = `Digitalni potpis je => ${digitalSignature}`
 }
 
 

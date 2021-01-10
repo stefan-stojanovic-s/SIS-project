@@ -178,3 +178,18 @@ section .main-container{
     text-decoration: none;
     color:black;
 }
+
+.primes{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display:none;
+}
+
+.primes p {
+    font-size:1.3rem;
+    margin: 0;
+    padding: 0;
+    margin-top:2px;
+}

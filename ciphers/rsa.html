@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="../scripts/index.js"> </script>
-    <title>Vigner - SIS</title>
+    <title>RSA - SIS</title>
 </head>
 
 <body>
@@ -21,12 +21,21 @@
                     </a>
                 </div>
                 <h1 class="title">RSA šifrovanje</h1>
-                <input class="main-input" name="prime-1" placeholder="Unesite prost broj p"></input>
-                <input class="main-input" name="prime-2" placeholder="Unesite prost broj q"></input>
+                <input class="main-input" name="n" onoutfo placeholder="Unesite N" onblur="isNInversible(this)"></input>
+                <div class="message"></div>
+                <div class="primes">
+                    <p name="prime-1" disabled>Prost broj p </p>
+                    <p name="prime-2" disabled>Prost broj q </p>
+                </div>
                 <button class="secondary-btn" onclick="randomPrimes()">Generisi proste brojeve</button>
 
+                <input class="main-input" name="e" placeholder="Unesite e"></input>
+                <input class="main-input" name="m" placeholder="Unesite m"></input>
 
-                <button class="main-btn" onclick="vignerCipher()">Sifruj</button>
+                <div class="result" style="margin-top: 20px; font-size: 1.3rem;">
+                </div>
+
+                <button class="main-btn" onclick="rsaCipher()">Sifruj</button>
             </div>
         </div>
     </section>
