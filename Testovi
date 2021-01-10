@@ -1,0 +1,44 @@
+Testovi:
+
+Cezar : 
+
+OT : 
+RIMSKI CAR AUGUST JE
+POMERAO SLOVA ZA JEDAN
+
+SIFRAT : VMQWOMGEVEYKYWXNITSQIVESWPSZEDENIHER
+
+Viznerova : 
+
+OT : GIOVAN BATTISTA BELLASO
+KLJUC : VIGENERE
+SIFRAT : BQUZNRSEOBOWGESIGTGWB
+
+AFINA : 
+OT : MARAMICA
+A : 11
+B : 22
+SIFRAT : YWBWYGSW
+
+PLAYFAIR : 
+
+OT : moja poruka
+KLJUC : kriptografija
+SIFRAT vcaekftnio
+
+DIFFIE - HELMAN :
+p 11
+g 7
+alisa 3
+bob 6
+
+racun alisa 2
+racun bob 4
+kljuc 9
+kljuc 9
+
+RSA : 
+N = > 403
+e = 103
+m = 3
+Digitalni potpis je 172
