@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <script src="scripts/index.js"> </script>
-    <title>Playfair - SIS</title>
+    <script src="../scripts/index.js"> </script>
+    <title>Afina - SIS</title>
 </head>
 
 <body>
@@ -16,14 +16,16 @@
         <div class="main-container">
             <div class="form-box">
                 <div class="back-wrapper">
-                    <a href="index.html" class="default-link">
+                    <a href="../index.html" class="default-link">
                         <span class="fas fa-angle-double-left back-arrow"></span>
                     </a>
                 </div>
-                <h1 class="title">Playfairova šifra</h1>
+                <h1 class="title">Afinina šifra</h1>
                 <textarea class="main-input" rows="5" cols="30" placeholder="Unesite otvoreni tekst"></textarea>
-                <input class="main-input" name="kljuc" placeholder="Unesite kljuc"></input>
-                <button class="main-btn" onclick="playfairCipher()">Sifruj</button>
+                <input class="main-input" name="kljuc-a" placeholder="Unesite a"></input>
+                <input class="main-input" name="kljuc-b" placeholder="Unesite b"></input>
+
+                <button class="main-btn" onclick="afinaCipher()">Sifruj</button>
             </div>
         </div>
     </section>
