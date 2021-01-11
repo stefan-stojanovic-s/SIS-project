@@ -1,8 +1,10 @@
 
+var alphabet = "abcdefghijklmnopqrstuvwxyz";
+const checkIfInAlphabet = (letter) => alphabet.indexOf(letter) >= 0 ? true : false;
+
 const cesarCipher = () => {
     let otvoreniTekst = document.querySelector(".main-input").value,
         brojPomeranja = parseInt(document.querySelector(".shift").value),
-        alphabet = "abcdefghijklmnopqrstuvwxyz",
         sifrat = "", helper, newIndex;
     otvoreniTekst.split("").forEach((letter) => {
         newIndex = alphabet.indexOf(letter.toLowerCase());
@@ -11,7 +13,6 @@ const cesarCipher = () => {
             newIndex += brojPomeranja;
             if (newIndex >= alphabet.length) {
                 newIndex = newIndex % alphabet.length;
-                console.log(newIndex);
             }
             if (letter.toLowerCase() !== letter) {
                 sifrat += alphabet[newIndex].toUpperCase();
@@ -29,23 +30,24 @@ const cesarCipher = () => {
 }
 
 const vignerCipher = () => {
-    let otvoreniTekst = document.querySelector(".main-input").value.split(" ").join(""),
+    let otvoreniTekst = document.querySelector(".main-input").value,
         kljuc = document.getElementsByName("kljuc")[0].value.split(" ").join(""),
-        alphabet = "abcdefghijklmnopqrstuvwxyz",
-        sifrat = "", helper, newIndex;
-
-    let kljucDuzina = kljuc.length;
+        sifrat = "", helper, newIndex, kljucDuzina = kljuc.length;
 
     otvoreniTekst.split("").forEach((letter, idx) => {
-        newIndex = alphabet.indexOf(letter.toLowerCase()) + alphabet.indexOf(kljuc[idx % kljucDuzina].toLowerCase());
-        if (newIndex >= 26) {
-            newIndex %= 26;
-        }
-        if (letter.toLowerCase() !== letter) {
-            sifrat += alphabet[newIndex].toUpperCase();
-        }
-        else {
-            sifrat += alphabet[newIndex];
+        if (checkIfInAlphabet(letter)) {
+            newIndex = alphabet.indexOf(letter.toLowerCase()) + alphabet.indexOf(kljuc[idx % kljucDuzina].toLowerCase());
+            if (newIndex >= 26) {
+                newIndex %= 26;
+            }
+            if (letter.toLowerCase() !== letter) {
+                sifrat += alphabet[newIndex].toUpperCase();
+            }
+            else {
+                sifrat += alphabet[newIndex];
+            }
+        } else {
+            sifrat += letter;
         }
     });
     document.querySelector(".main-input").value = sifrat;
@@ -55,13 +57,23 @@ const afinaCipher = () => {
     let otvoreniTekst = document.querySelector(".main-input").value.split(" ").join(""),
         a = parseInt(document.getElementsByName("kljuc-a")[0].value.split(" ").join("")),
         b = parseInt(document.getElementsByName("kljuc-b")[0].value.split(" ").join("")),
-        alphabet = "abcdefghijklmnopqrstuvwxyz",
         sifrat = "", helper, newIndex;
 
 
     otvoreniTekst.split("").forEach((letter, idx) => {
-        newIndex = (alphabet.indexOf(letter.toLowerCase()) * a + b) % 26;
-        sifrat += alphabet[newIndex];
+        if (checkIfInAlphabet(letter)) {
+            newIndex = (alphabet.indexOf(letter.toLowerCase()) * a + b) % 26;
+            if (letter.toLowerCase() === letter) {
+                sifrat += alphabet[newIndex];
+            }
+            else {
+                sifrat += alphabet[newIndex].toUpperCase();
+            }
+        }
+        else {
+            sifrat += letter;
+        }
+
     });
     document.querySelector(".main-input").value = sifrat;
 }
@@ -70,7 +82,6 @@ const playfairCipher = () => {
 
     let otvoreniTekst = document.querySelector(".main-input").value.split(" ").join(""),
         kljuc = document.querySelector("input[name=kljuc]").value.split(" ").join(""),
-        alphabet = "abcdefghijklmnopqrstuvwxyz",
         sifrat = "",
         matrix = new Array(5).fill(new Array(5).fill()),
         matrixNew = [[], [], [], [], []],
@@ -98,19 +109,17 @@ const playfairCipher = () => {
     }
 
     const checkIfLetterJ = (letter) => letter === "j" ? "i" : letter;
-    const checkIfInAlphabet = (letter, alphabet) => alphabet.indexOf(letter) >= 0 ? true : false;
 
-    console.log(slovaOtvorenogTeksta);
     slovaOtvorenogTeksta.forEach((letter, idx) => {
         letter = checkIfLetterJ(letter);
-        if (idx % 2 === 0 && checkIfInAlphabet(letter, alphabet)) {
+        if (idx % 2 === 0 && checkIfInAlphabet(letter)) {
             temp = {};
             temp.firstLetter = letter;
             temp.secondLetter = "x";
             if (idx + 1 < slovaOtvorenogTeksta.length) {
                 if (slovaOtvorenogTeksta[idx + 1] !== letter) {
                     newLetter = checkIfLetterJ(slovaOtvorenogTeksta[idx + 1]);
-                    if (checkIfInAlphabet(newLetter, alphabet)) {
+                    if (checkIfInAlphabet(newLetter)) {
                         temp.secondLetter = newLetter;
                     }
                 }
@@ -123,7 +132,7 @@ const playfairCipher = () => {
     // i = j;
     slovaKljuca.forEach((letter) => {
         letter = checkIfLetterJ(letter);
-        if (noviKljuc.indexOf(letter) < 0 && checkIfInAlphabet(letter, alphabet)) {
+        if (noviKljuc.indexOf(letter) < 0 && checkIfInAlphabet(letter)) {
             noviKljuc += letter;
         }
     })
@@ -144,8 +153,6 @@ const playfairCipher = () => {
         }
     }
 
-    console.log(matrixNew);
-    console.log(pairs);
     //match pairs with existing matrixx
     // and shift by the rules
     pairs.forEach((pair => {
@@ -182,14 +189,16 @@ const playfairCipher = () => {
             secondLetterIdx.j = temp;
         }
 
-        // console.log(`First letter idxs ${JSON.stringify(firstLetterIdx, null, " ")}`);
-        // console.log(`Second letter idxs ${JSON.stringify(secondLetterIdx, null, " ")}`);
-
         sifrat += matrixNew[firstLetterIdx.i][firstLetterIdx.j] + matrixNew[secondLetterIdx.i][secondLetterIdx.j];
-        // console.log(`First letter idx \n${JSON.stringify(firstLetterIdx)}`);
-        // console.log(`Second letter idx \n${JSON.stringify(secondLetterIdx)}`);
-
     }));
+
+    otvoreniTekst.split("").forEach((letter, idx) => {
+        if (letter.toLowerCase() === letter) {
+
+        }
+    })
+
+
 
     document.querySelector(".main-input").value = sifrat;
 }
@@ -326,8 +335,8 @@ const rsaCipher = () => {
         let d = 1, x;
         while (true) {
             x = e * d;
-            if (d === 10000){
-                return "";
+            if (d === 15000) {
+                return "Not found";
             }
             if (x % fn === 1) {
                 return d
@@ -338,6 +347,8 @@ const rsaCipher = () => {
         }
     }
 
+    //koriscena je BigInteger.js biblioteka zbog povecanja vrednosti integera
+    // koje je vece od 64 bitnog integera
     let n = parseInt(document.getElementsByName("n")[0].value),
         prime1 = parseInt(document.getElementsByName("prime-1")[0].innerText.split("=> ")[1]),
         prime2 = parseInt(document.getElementsByName("prime-2")[0].innerText.split("=> ")[1]),
@@ -346,11 +357,19 @@ const rsaCipher = () => {
         fn = (prime1 - 1) * (prime2 - 1);
 
     if (e <= 1 || e >= fn) {
-        alert("Vrednost e mora biti izmedju 1 i fi(n)");
+        alert(`Vrednost e mora biti izmedju 1 i fi(n) , to jest izmedju 1 i ${fn}`);
         return;
     }
 
-    let d = findKey(e, fn), digitalSignature = Number.isInteger(m) ? bigInt(m).pow(d).mod(n) : "Not found";
+    let d;
+    try {
+        d = bigInt(e).modInv(fn), digitalSignature;
+    }
+    catch (err) {
+        alert(`${e} i ${fn} nisu uzajmno prosti brojevi!`);
+        return;
+    }
+    digitalSignature = bigInt(m).pow(d).mod(n);
     document.querySelector(".result").innerText = `Digitalni potpis je => ${digitalSignature.toString()}`
 }
 

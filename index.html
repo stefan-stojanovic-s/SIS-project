@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <script>
+        const redirectRoute = (route) => window.location.href=route;
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.css">
@@ -15,9 +18,9 @@
     <header></header>
     <div class="main-container">
 
-        <h1 style="font-size: 2.5rem;">Sifrujte na sledece nacine : </h1>
+        <h1 style="font-size: 2.5rem;">Šifrujte na sledece nacine</h1>
         <div class="card-holder">
-            <div class="card">
+            <div class="card"  onclick="redirectRoute('ciphers/cesar.html')">
                 <div class="card-content">
                     <span class="fas fa-angle-double-down arrow-down"></span>
 
@@ -27,28 +30,26 @@
                 </div>
             </div>
 
-            <div class="card split">
+            <div class="card split" onclick="redirectRoute('ciphers/vigner.html')">
                 <div class="card-content">
                     <span class="fas fa-angle-double-down arrow-down"></span>
 
                     <a href="ciphers/vigner.html" class="default-link">
-                        Vigner
+                        Vižnjer
                     </a>
 
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-content">
-                    <span class="fas fa-angle-double-down arrow-down"></span>
-
-                    <a href="ciphers/afina.html" class="default-link">
-                        Afina
-                    </a>
+                <div class="card" onclick="redirectRoute('ciphers/afina.html')">
+                    <div class="card-content">
+                        <span class="fas fa-angle-double-down arrow-down"></span>
+                        <a href="ciphers/afina.html" class="default-link">
+                            Afina
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card">
+            <div class="card" onclick="redirectRoute('ciphers/playfair.html')">
                 <div class="card-content">
                     <span class="fas fa-angle-double-down arrow-down"></span>
 
@@ -68,7 +69,7 @@
                 </div>
             </div> -->
 
-            <div class="card">
+            <div class="card" onclick="redirectRoute('ciphers/diffie.html')">
                 <div class="card-content">
                     <span class="fas fa-angle-double-down arrow-down"></span>
 
@@ -78,7 +79,7 @@
                 </div>
             </div>
 
-            <div class="card split">
+            <div class="card split" onclick="redirectRoute('ciphers/rsa.html')">
                 <div class="card-content">
                     <span class="fas fa-angle-double-down arrow-down"></span>
                     <a href="ciphers/rsa.html" class="default-link">

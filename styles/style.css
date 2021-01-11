@@ -144,8 +144,9 @@ section .main-container{
 
 .secondary-btn{
     background-color: #3498db;
-    width: 60%;
-    font-size: 1.4rem;
+    width: 50%;
+    font-size: 1.2rem;
+    padding:15px;
 }
 
 .back-wrapper{
@@ -172,6 +173,7 @@ section .main-container{
     font-size: 1.3rem;
     user-select: none;
     color:black;
+    display: block;
 }
 
 .default-link:visited{
