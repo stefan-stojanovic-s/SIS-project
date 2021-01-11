@@ -1,6 +1,6 @@
 
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
-const checkIfInAlphabet = (letter) => alphabet.indexOf(letter) >= 0 ? true : false;
+const checkIfInAlphabet = (letter) => alphabet.indexOf(letter.toLowerCase()) >= 0 ? true : false;
 
 const cesarCipher = () => {
     let otvoreniTekst = document.querySelector(".main-input").value,
