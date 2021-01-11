@@ -79,7 +79,6 @@ const afinaCipher = () => {
 }
 
 const playfairCipher = () => {
-
     let otvoreniTekst = document.querySelector(".main-input").value.split(" ").join(""),
         kljuc = document.querySelector("input[name=kljuc]").value.split(" ").join(""),
         sifrat = "",
@@ -191,15 +190,6 @@ const playfairCipher = () => {
 
         sifrat += matrixNew[firstLetterIdx.i][firstLetterIdx.j] + matrixNew[secondLetterIdx.i][secondLetterIdx.j];
     }));
-
-    otvoreniTekst.split("").forEach((letter, idx) => {
-        if (letter.toLowerCase() === letter) {
-
-        }
-    })
-
-
-
     document.querySelector(".main-input").value = sifrat;
 }
 
