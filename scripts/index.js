@@ -54,7 +54,7 @@ const vignerCipher = () => {
 }
 
 const afinaCipher = () => {
-    let otvoreniTekst = document.querySelector(".main-input").value.split(" ").join(""),
+    let otvoreniTekst = document.querySelector(".main-input").value,
         a = parseInt(document.getElementsByName("kljuc-a")[0].value.split(" ").join("")),
         b = parseInt(document.getElementsByName("kljuc-b")[0].value.split(" ").join("")),
         sifrat = "", helper, newIndex;
