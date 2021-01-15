@@ -21,7 +21,7 @@
 
 <body>
     <section>
-        <div class="main-container">
+        <div class="main-container" style="flex-direction: row;">
             <div class="form-box">
                 <div class="back-wrapper">
                     <a href="../index.html" class="default-link">
@@ -35,16 +35,36 @@
                     <p name="prime-1" disabled>Prost broj p </p>
                     <p name="prime-2" disabled>Prost broj q </p>
                 </div>
-                <button class="secondary-btn" onclick="randomPrimes()">Generisi proste brojeve</button>
-
                 <input class="main-input" name="e" placeholder="Unesite e"></input>
                 <input class="main-input" name="m" placeholder="Unesite m"></input>
 
                 <div class="result" style="margin-top: 20px; font-size: 1.3rem;">
                 </div>
-
                 <button class="main-btn" onclick="rsaCipher()">Šifruj</button>
+                
             </div>
+
+            <div class="form-box">
+                <div class="back-wrapper">
+                    <a href="../index.html" class="default-link">
+                        <span class="fas fa-angle-double-left back-arrow"></span>
+                    </a>
+                </div>
+                <h1 class="title">RSA proveri kljuc</h1>
+                <input class="main-input" name="n" onoutfo placeholder="Unesite N"></input>
+                <div class="message"></div>
+                <div class="primes">
+                    <p name="prime-1" disabled>Prost broj p </p>
+                    <p name="prime-2" disabled>Prost broj q </p>
+                </div>
+                <input class="main-input" name="e" placeholder="Unesite e"></input>
+                <input class="main-input" oninput="rsaIsAKey(this)" name="d" placeholder="Unesite kljuc"></input>
+
+                <div class="result" style="margin-top: 20px; font-size: 1.3rem;">
+                </div>                
+            </div>
+
+            
         </div>
     </section>
 </body>
